@@ -24,6 +24,7 @@ body {
   margin: 0.5rem;
   padding: 0.5rem;
   border: 1px solid;
+  background-color: rgb(125, 125, 125);
 }
 
 .task-links {
@@ -33,4 +34,8 @@ body {
 
 .task-links button {
   cursor: pointer;
+}
+
+.tasks {
+  background-color: red;
 }

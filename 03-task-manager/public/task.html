@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script defer src="./edit-task.js"></script>
+    <title>edit task</title>
+
 </head>
+
 <body>
-    edit task
+    <div class="container">
+        <form class="single-task-form">
+            <h4>edit task</h4>
+            <div>task ID</div>
+            <p class="task-edit-id"></p>
+            <label for="name">Name</label>
+            <input type="text" name="name" class="task-edit-name">
+            <p>
+                <input class="task-edit-completed"  type="checkbox" name="completed" id="">
+                <label for="completed">completed</label>
+            </p>
+            <p><button class="btn" >edit</button></p>
+        </form>
+        <p><a href="./index.html">back to home</a></p>
+        <p><div class="form-alert" ></div></p>
+    </div>
 </body>
+
 </html>
