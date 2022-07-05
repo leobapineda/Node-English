@@ -1,0 +1,19 @@
+body {
+    background-color: #999;
+}
+
+.loading-text {
+    visibility: hidden;
+}
+
+.indiviaul-task {
+    border: 1px solid;
+    width: 400px;
+    height: 30px;
+}
+
+.indiviaul-task.task-completed{
+    text-decoration: line-through;
+    width: 400px;
+    color: red;
+}
