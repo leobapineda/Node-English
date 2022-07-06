@@ -5,12 +5,17 @@ const port = process.env.PORT || 3000;
 const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
 // middleware
-
+const notFound = require("./middleware/not-found.js");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 app.use(express.json()); //to be able to get the req,body
 // app.use(express.static("./public2"))
-app.use(express.static("./public"))
+app.use(express.static("./public"));
 // routes
+
 app.use("/api/v1/tasks", tasks);
+
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
