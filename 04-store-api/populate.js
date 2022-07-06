@@ -12,10 +12,11 @@ const start = async () => {
     // await Product.deleteMany()
     await Product.create(jsonProducts)
     console.log("product created")
+    process.exit(0)
   }
   catch(err) {
     console.log(err)
-
+    process.exit(1)
   }
   
 }
