@@ -1,6 +1,5 @@
 var jwt = require("jsonwebtoken");
-const CustomAPIError = require("../errors/custom-error");
-
+const {Badrequests} = require("../errors/index")
 
 const {
   ReasonPhrases,
@@ -19,7 +18,7 @@ const login = (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    throw new CustomAPIError("must provide username and password", 404);
+    throw new Badrequests(ReasonPhrases.BAD_REQUEST);
   }
 
   try {
@@ -31,7 +30,7 @@ const login = (req, res, next) => {
     res.status(StatusCodes.CREATED).json({ msg: ReasonPhrases.CREATED, token });
   } catch (error) {
     console.log(error);
-    throw new CustomAPIError("must provide username and password", 404);
+    throw new Badrequests(ReasonPhrases.BAD_REQUEST);
   }
 };
 
