@@ -17,7 +17,6 @@ const authMiddleware = (req, res, next) => {
     console.log(error);
     next("can not access dashboard")
   }
-
 }
 
 module.exports = authMiddleware
