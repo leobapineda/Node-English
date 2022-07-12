@@ -29,7 +29,7 @@ userSchema.methods.findName = function () {
 };
 
 userSchema.methods.createJWT = function() {
-  return jwt.sign({ userName:this.name, userId:this._id}, process.env.JWT_SECRET_KEY,{expiresIn: "30 days"});
+  return jwt.sign({ userName:this.name, userId:this._id}, process.env.JWT_SECRET_KEY,{expiresIn: process.env.JWT_LIFETIME});
 };
 
 // pre
