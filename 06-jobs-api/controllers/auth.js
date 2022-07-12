@@ -1,18 +1,19 @@
+require('dotenv').config()
 const userModel = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
-const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(password, salt);
-  const newUser = await userModel.create({
-    name,
-    email,
-    password: hashPassword,
-  });
-  console.log(newUser);
-  res.status(StatusCodes.CREATED).json({ newUser });
+ try{
+   const newUser = await userModel.create(req.body);
+   const {_id:userId, name:userName} = newUser
+   const token = jwt.sign({ userId, userName }, process.env.JWT_SECRET_KEY, { expiresIn: "30 days" });
+  res.status(StatusCodes.CREATED).json({ name: newUser.findName(), token });
+ }
+ catch(err) {
+  console.log(err)
+  res.status(401).send(err);
+ }
 };
 
 const login = async (req, res) => {
