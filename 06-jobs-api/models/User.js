@@ -28,14 +28,23 @@ userSchema.methods.findName = function () {
   return this.name;
 };
 
-userSchema.methods.createJWT = function() {
-  return jwt.sign({ userName:this.name, userId:this._id}, process.env.JWT_SECRET_KEY,{expiresIn: process.env.JWT_LIFETIME});
+userSchema.methods.createJWT = function () {
+  return jwt.sign(
+    { userName: this.name, userId: this._id },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: process.env.JWT_LIFETIME }
+  );
 };
 
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  const compare = await bcrypt.compare(candidatePassword, this.password);
+  return compare;
+};
 // pre
 userSchema.pre("save", async function () {
   const salt = await bcrypt.genSalt(10);
-  this.hashPassword = await bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, salt);
 });
 
+  
 module.exports = mongoose.model("User", userSchema);
