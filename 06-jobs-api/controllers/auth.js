@@ -1,25 +1,22 @@
 const userModel = require("../models/User");
+const { StatusCodes } = require("http-status-codes");
+const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
-  const { user, pass } = req.body;
-  if(!user || !pass) {
-    return res.status(401).json({msg:"must provide user and pass"});
-  }
-  try {
-    console.log("try block")
-    const {user:userName, pass: passWord} = await userModel.create({user, pass})
-    res.status(200).json({userName, passWord});
-    console.log("ok")
-  } catch (err) {
-    console.log(err);
-    res.status(401).json({msg:err});
-    console.log("error")
-
-  }
+  const { name, email, password } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashPassword = await bcrypt.hash(password, salt);
+  const newUser = await userModel.create({
+    name,
+    email,
+    password: hashPassword,
+  });
+  console.log(newUser);
+  res.status(StatusCodes.CREATED).json({ newUser });
 };
 
 const login = async (req, res) => {
-  res.send("login");
+  res.status(201).send("login");
 };
 
 module.exports = { register, login };
