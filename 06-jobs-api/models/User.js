@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-// do stuff
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
@@ -24,8 +24,12 @@ const userSchema = new Schema({
 });
 
 // Or, assign a function to the "methods" object of our animalSchema
-userSchema.methods.findName = function() {
+userSchema.methods.findName = function () {
   return this.name;
+};
+
+userSchema.methods.createJWT = function() {
+  return jwt.sign({ userName:this.name, userId:this._id}, process.env.JWT_SECRET_KEY,{expiresIn: "30 days"});
 };
 
 // pre
