@@ -1,12 +1,16 @@
-//
+require("dotenv").config();
+var jwt = require("jsonwebtoken");
+
 const createJob = async (req, res) => {
-  res.send(" createJobjob");
+  const { userName, userId } = req.user;
+  res.send(`welcome to getAllJobs ${userName}, your ID is ${userId}`);
 };
+
 const getAllJobs = async (req, res) => {
-  
-  res.send(" getAllJobsjob");
-  
+  const { userName, userId } = req.user;
+  res.send(`welcome to getAllJobs ${userName}, your ID is ${userId}`);
 };
+
 const getJob = async (req, res) => {
   res.send(" getJobjob");
 };
