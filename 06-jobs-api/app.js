@@ -25,7 +25,7 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    console.log("connection to mongo");
+    console.log("connecting to mongo");
     await connectDB(process.env.MONGO_URI);
     console.log("connected");
     app.listen(port, () =>

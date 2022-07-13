@@ -9,15 +9,15 @@ const {
   BadRequestError,
 } = require("../errors/index");
 const register = async (req, res) => {
-  try {
+  // try {
     const User = await userModel.create(req.body);
     const { _id: userId, name: userName } = User;
     const token = User.createJWT();
     res.status(StatusCodes.CREATED).json({ user: { name: userName }, token });
-  } catch (err) {
-    console.log(err);
-    res.status(401).send(err);
-  }
+  // } catch (err) {
+  //   console.log(err);
+  //   // res.status(401).send(err);
+  // }
 };
 
 const login = async (req, res) => {

@@ -23,6 +23,6 @@ const jobSchema = new Schema({
     required: [true, "must provide user"],
     ref: "User",
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Job", jobSchema);
