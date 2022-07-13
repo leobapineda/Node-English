@@ -10,9 +10,9 @@ const {
 } = require("../errors/index");
 const register = async (req, res) => {
   try {
-    const newUser = await userModel.create(req.body);
-    const { _id: userId, name: userName } = newUser;
-    const token = newUser.createJWT();
+    const User = await userModel.create(req.body);
+    const { _id: userId, name: userName } = User;
+    const token = User.createJWT();
     res.status(StatusCodes.CREATED).json({ user: { name: userName }, token });
   } catch (err) {
     console.log(err);

@@ -1,21 +1,56 @@
 require("dotenv").config();
 var jwt = require("jsonwebtoken");
+const jobSchema = require("../models/Job");
+const { StatusCodes } = require("http-status-codes");
+const {
+  CustomAPIError,
+  UnauthenticatedError,
+  NotFoundError,
+  BadRequestError,
+} = require("../errors/index");
 
 const createJob = async (req, res) => {
-  const { userName, userId } = req.user;
-  res.send(`welcome to getAllJobs ${userName}, your ID is ${userId}`);
+  req.body.createdBy = req.user.userId;
+  try {
+    const Job = await jobSchema.create(req.body);
+    res.status(StatusCodes.CREATED).json(Job);
+  } catch (err) {
+    console.log(err);
+    res.status(401).json(err);
+  }
 };
 
 const getAllJobs = async (req, res) => {
-  const { userName, userId } = req.user;
-  res.send(`welcome to getAllJobs ${userName}, your ID is ${userId}`);
+  try {
+    const { userName, userId } = req.user;
+    console.log(userName, userId);
+    const Jobs = await jobSchema.find({ createdBy: userId });
+    res.status(StatusCodes.OK).json({ userName, userId, Jobs });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getJob = async (req, res) => {
-  res.send(" getJobjob");
+  // se obtiene pasando una propiedad
+  try {
+    const { userName, userId } = req.user;
+    const jobId = req.params.id;
+    const Job = await jobSchema.findOne({ _id: jobId, createdBy:userId});
+    if (!Job) {
+      return res
+        .status(404)
+        .json({ msg: `this job does not exists. ID: ${jobId}` });
+    }
+    res.status(StatusCodes.OK).json({ userName, userId, Job });
+  } catch (err) {
+    console.log(err);
+    res.status(401).json(err);
+  }
 };
 const updateJob = async (req, res) => {
   res.send(" updateJobjob");
+  
 };
 
 const deleteJob = async (req, res) => {
