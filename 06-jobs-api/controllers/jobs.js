@@ -36,7 +36,7 @@ const getAllJobs = async (req, res) => {
 };
 
 const getJob = async (req, res, next) => {
-  try {
+  // try {
     const { userName, userId } = req.user;
     const jobId = req.params.id;
     const Job = await jobSchema.findOne({ _id: jobId, createdBy: userId });
@@ -45,10 +45,6 @@ const getJob = async (req, res, next) => {
       throw new NotFoundError(`no job with id: ${jobId}`);
     }
     res.status(StatusCodes.OK).json({ userName, userId, Job });
-  } catch (err) {
-    console.log(err);
-    res.status(StatusCodes.NOT_FOUND).json(err);
-  }
 };
 
 const updateJob = async (req, res) => {
