@@ -7,7 +7,7 @@ const errorHanlder = (err, req, res, next) => {
 
   console.log(err)
   res.status(customError.satusCode).json({ msg: customError.message });
-  // res.status(customError.satusCode).json({ err });
+  // res.status(customError.satusCode).json(err);
 };
 
 module.exports = errorHanlder;

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
   name: {
@@ -17,8 +18,13 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "Must provide password"],
-    maxLength: 30,
   },
+});
+
+// using pre we execute this code before creating the document, here we are saying: hash the password and use that hash as the password before saving the document
+userSchema.pre("save", async function () {
+  const salt = bcrypt.genSaltSync(10);
+  this.password = bcrypt.hashSync(this.password, salt);
 });
 
 const userModel = mongoose.model("User", userSchema);
