@@ -5,9 +5,9 @@ const errorHanlder = (err, req, res, next) => {
     satusCode: err.satusCode || 500,
   };
 
-  console.log("i am errorHandlerMiddleware");
-  // res.status(customError.satusCode).json({ msg: customError.message });
-  res.status(customError.satusCode).json({ err });
+  console.log(err)
+  res.status(customError.satusCode).json({ msg: customError.message });
+  // res.status(customError.satusCode).json({ err });
 };
 
 module.exports = errorHanlder;
