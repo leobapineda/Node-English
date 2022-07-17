@@ -35,6 +35,11 @@ userSchema.methods.createToken = function () {
   return token;
 };
 
+userSchema.methods.passwordAuthentication = async function (givenPassword) {
+  const isPassword = await bcrypt.compare(givenPassword, this.password);
+  return isPassword
+};
+
 // que hacemos con el token
 // porque lo creamos desde un principio
 // lo creamos para funcionar como otra barrera de entrada
