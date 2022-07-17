@@ -35,5 +35,10 @@ userSchema.methods.createToken = function () {
   return token;
 };
 
+// que hacemos con el token
+// porque lo creamos desde un principio
+// lo creamos para funcionar como otra barrera de entrada
+// si el token no existe, no puede entrar, entonces debemos ponerlo como un middleware
+
 const userModel = mongoose.model("User", userSchema);
 module.exports = userModel;

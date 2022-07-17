@@ -5,12 +5,13 @@ const port = 3000;
 const connectDB = require("./db/connect");
 const authRouter = require("./routes/authentication-route");
 const jobRouter = require("./routes/jobs-route");
+const jwtAuth = require("./middleware/auth")
 app.use(express.json());
 // errors
 const errorHanlder = require("./middleware/error-handler")
 
-app.use("/v1/job/", jobRouter);
 app.use("/v1/auth/", authRouter);
+app.use("/v1/job/", jwtAuth, jobRouter);
 
 app.use(errorHanlder);
 
