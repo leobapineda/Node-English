@@ -7,7 +7,8 @@ const authRouter = require("./routes/authentication-route");
 const jobRouter = require("./routes/jobs-route");
 const jwtAuth = require("./middleware/auth");
 // HANDLE ERRORS
-const {BadRequest, CustomError, Unauthorized, notFound} = require("./errors/index");
+const {BadRequest, CustomError, Unauthorized} = require("./errors/index");
+const notFound = require("./middleware/notFound")
 const errorHanlder = require("./middleware/error-handler");
 app.use(express.json());
 
