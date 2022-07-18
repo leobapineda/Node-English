@@ -1,5 +1,5 @@
-// register
-// login
+const express = require("express");
+const router = express.Router();
 const {
   getAllJobs,
   createJob,
@@ -7,8 +7,6 @@ const {
   editJob,
   deleteJob,
 } = require("../controllers/jobs-ctrl");
-const express = require("express");
-const router = express.Router();
 
 router.route("/").get(getAllJobs).post(createJob);
 router.route("/:id").get(getSingleJob).patch(editJob).delete(deleteJob);

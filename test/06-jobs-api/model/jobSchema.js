@@ -19,8 +19,8 @@ const jobSchema = new Schema(
     interviewStatus: {
       type: String,
       required: [true, "Must provide status"],
-      enum: ["pending", "declined", "done"],
-      default: "pending",
+      enum: ["Pending", "Declined", "Done"],
+      default: "Pending",
     },
   },
   { timestamps: true }

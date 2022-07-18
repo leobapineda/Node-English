@@ -15,6 +15,7 @@ const userSchema = new Schema({
     match:
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     unique: true,
+    maxLength: 50,
   },
   password: {
     type: String,
@@ -39,11 +40,6 @@ userSchema.methods.passwordAuthentication = async function (givenPassword) {
   const isPassword = await bcrypt.compare(givenPassword, this.password);
   return isPassword
 };
-
-// que hacemos con el token
-// porque lo creamos desde un principio
-// lo creamos para funcionar como otra barrera de entrada
-// si el token no existe, no puede entrar, entonces debemos ponerlo como un middleware
 
 const userModel = mongoose.model("User", userSchema);
 module.exports = userModel;

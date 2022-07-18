@@ -1,36 +1,32 @@
-const { find } = require("../model/jobSchema");
-const userModel = require("../model/jobSchema");
+const { StatusCodes } = require("http-status-codes");
 require("express-async-errors");
-const {
-  BadRequest,
-  CustomError,
-  Unauthorized,
-  notFound,
-} = require("../errors/index");
+const userModel = require("../model/jobSchema");
+const { BadRequest} = require("../errors/index");
 const createJob = async (req, res) => {
-  console.log("i am createJob");
-  const { userName, userId } = req.user;
+  const { userId } = req.user;
   req.body.postedBy = userId;
   const Job = await userModel.create(req.body);
-  res.status(200).json(Job);
+  res.status(StatusCodes.CREATED).json(Job);
 };
 
 const getAllJobs = async (req, res) => {
   const { userName, userId } = req.user;
   const Jobs = await userModel.find({ postedBy: userId });
   if (Jobs.length < 1) {
-    return res.status(200).json({ userName, msg:"no jobs created yet" });
+    return res
+      .status(StatusCodes.NO_CONTENT)
+      .json({ userName, msg: "There are no jobs" });
   }
-  res.status(200).json({ userName, amount: Jobs.length, userId, Jobs });
+  res.status(StatusCodes.OK).json({ userName, amount: Jobs.length, Jobs });
 };
 
 const getSingleJob = async (req, res) => {
   const { id } = req.params;
   const Job = await userModel.findById(id);
   if (!Job) {
-    throw new BadRequest(`no job with id: ${id} found`);
+    throw new BadRequest(`Could not find job with id: ${id}`);
   }
-  res.status(200).json(Job);
+  res.status(StatusCodes.OK).json(Job);
 };
 
 const editJob = async (req, res) => {
@@ -40,18 +36,18 @@ const editJob = async (req, res) => {
     runValidators: true,
   });
   if (!Job) {
-    throw new BadRequest(`can not get job with id: ${id}`);
+    throw new BadRequest(`Could not find job with id: ${id}`);
   }
-  res.status(200).json({ edit: true, Job });
+  res.status(StatusCodes.OK).json({ msg: "Job updated", Job });
 };
 
 const deleteJob = async (req, res) => {
   const { id } = req.params;
   const Job = await userModel.findOneAndDelete({ _id: id });
   if (!Job) {
-    throw new BadRequest(`job with id: ${id} not found`);
+    throw new BadRequest(`Could not find job with id: ${id}`);
   }
-  res.status(200).json({ msg: "Job deleted", Job });
+  res.status(StatusCodes.OK).json({ msg: "Job deleted", Job });
 };
 
 module.exports = {
