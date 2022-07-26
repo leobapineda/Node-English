@@ -6,10 +6,14 @@ const app = express();
 app.use(express.json())
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFound = require("./middleware/not-found");
-const authRouter = require("./routes/auth");
+const authRouter = require("./routes/authRoutes");
+const jobsRouter = require("./routes/jobsRoutes");
 const connectDB = require("./db/connect")
-app.use("/auth", authRouter);
 
+const authenticationMiddleware = require("./middleware/authentication")
+
+app.use("/auth", authRouter);
+app.use("/jobs", authenticationMiddleware, jobsRouter);
 app.use(errorHandlerMiddleware);
 app.use(notFound);
 
