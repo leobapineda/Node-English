@@ -12,6 +12,6 @@ router
   .get(getAllProducts)
   .post(createProduct)
   .delete(deleteAllProducts);
-router.route("/upload").post(uploadProductImage);
+router.route("/uploads").post(uploadProductImage);
 
 module.exports = router;

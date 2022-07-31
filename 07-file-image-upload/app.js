@@ -16,6 +16,7 @@ app.use(fileUpload());
 
 
 app.use(express.static("public"));
+const url = "/api/v1/products";
 
 app.use("/api/v1/products", ProductRoute);
 app.use(errorHandlerMiddleware);

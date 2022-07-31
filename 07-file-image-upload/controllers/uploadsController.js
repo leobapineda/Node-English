@@ -8,7 +8,6 @@ const uploadProductImage = async (req, res) => {
   res
     .status(StatusCodes.OK)
     .json({ image: { src: `/uploads/${producImage.name}` } });
-
 };
 
 module.exports = { uploadProductImage };
