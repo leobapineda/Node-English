@@ -23,7 +23,6 @@ imageInputDOM.addEventListener('change',async (e)=>{
  formData.append('image',imageFile)
  
  try {
-  console.log(formData);
   const {data:{image:{src}}} = await axios.post(`${url}/uploads`,formData,{
    headers:{
     'Content-Type':'multipart/form-data'
@@ -32,7 +31,7 @@ imageInputDOM.addEventListener('change',async (e)=>{
   imageValue = src
  } catch (error) {
    imageValue = null
-  console.log(error);
+  console.log({error});
  }
 })
 
@@ -48,7 +47,7 @@ try {
   await axios.post(url,product);
   fetchProducts()
 } catch (error) {
- console.log(error);
+   console.log({ error });
 }
 })
 

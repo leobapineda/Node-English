@@ -3,17 +3,23 @@ require("express-async-errors");
 const fileUpload = require("express-fileupload");
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000 || 5000
-const connectDB = require("./db/connect")
+const PORT = process.env.PORT || 3000 || 5000;
+const connectDB = require("./db/connect");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
 const NotFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
-const ProductRoute = require("./routes/productRoutes")
-app.use(express.json())
+const ProductRoute = require("./routes/productRoutes");
+app.use(express.json());
 
 // IMAGE
-app.use(fileUpload());
+app.use(fileUpload({ useTempFiles: true }));
 // IMAGE
-
 
 app.use(express.static("public"));
 const url = "/api/v1/products";
@@ -27,13 +33,12 @@ async function start() {
     console.log("connecting ");
     await connectDB(process.env.MONGO_URI);
     console.log("CONNECTED");
-    app.listen(PORT, () => console.log("listening on port " + 3000));
+    app.listen(PORT, () => console.log("listening on port " + PORT));
   } catch (err) {
     console.log(err);
   }
 }
 start();
-
 
 // vincit qui se vincit
 // guinket kui se guinket
