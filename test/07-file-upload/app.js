@@ -7,7 +7,7 @@ const fileUpload = require("express-fileupload");
 
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 3000 || 5000;
+const PORT = process.env.PORT || 5000;
 const connectDB = require("./db/connectDB");
 // middleware
 const NotFound = require("./middleware/not-found");

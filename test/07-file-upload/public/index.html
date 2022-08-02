@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="./index.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-    <h1 class="h1" >lol</h1>
+    <h1 class="h1">Load product</h1>
+    <form id="form">
+        <div>
+            <label for="product-name">Name: </label>
+            <input value="computer" type="product-name" name="product-name" id="product-name">
+        </div>
+        <br>
+        <div>
+            <label for="product-price">Price: </label>
+            <input value="123" type="number" name="product-price" id="product-price">
+        </div>
+        <br>
+        <div>
+            <label for="product-image">Image: </label>
+            <input accept="image/png, image/jpeg" type="file" name="product-image" id="product-image">
+        </div>
+        <br>
+        <button type="submit">Submit Product</button>
+    </form>
+    <h3 class="error" ></h3>
+    <section id="container" >
+        <!-- <article class="product-container" >
+            <img class="product_image" src={image} alt={name}>
+            <p>{name}</p>
+            <div>{price}</div>
+        </article> -->
+    </section>
 </body>
+
 </html>

@@ -1,0 +1,11 @@
+.product-container{
+    width: 200px;
+    height: 220px;
+    border: 1px solid red;
+    margin: 1rem;
+}
+
+.product_image {
+    width: 200px;
+}
+

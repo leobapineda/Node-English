@@ -3,7 +3,7 @@ const ProductModel = require("../models/ProductModel");
 
 const createProduct = async (req, res) => {
   const newProduct = await ProductModel.create({ ...req.body });
-  res.status(201).json(newProduct);
+  res.status(201).json({ Product: newProduct, message: "Product Created" });
 };
 
 const getAllProducts = async (req, res) => {
