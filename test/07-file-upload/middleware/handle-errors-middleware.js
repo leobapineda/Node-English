@@ -1,6 +1,7 @@
 const handleErrorsMiddleware = (err, req, res, next) => {
+  console.log(err);
   const customError = {
-    message: err.msg || "Oops, something whent wrong, try again later",
+    message: err.message || "Oops, something whent wrong, try again later",
     statusCode: err.statusCode || 500,
   };
 
@@ -10,14 +11,11 @@ const handleErrorsMiddleware = (err, req, res, next) => {
   }
 
   if (err.name === "ValidationError") {
-    const all = Object.keys(err.errors);
+    const all = Object.keys(err.errors).join(", ");
     customError.message = `Must provide ${all}`;
     customError.statusCode = 400;
-    console.log(all);
   }
-  console.log(customError.message);
   res.status(customError.statusCode).json({ msg: customError.message });
-    // res.status(customError.statusCode).json({ err });
 };
 
 module.exports = handleErrorsMiddleware;
